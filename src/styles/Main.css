@@ -1,0 +1,23 @@
+.siteHeader {
+    width: 100%;
+    background: blue;
+    height: 25vh;
+    background-image: url("../images/old_globe.jfif");
+}
+
+.mainTitle {
+    color: white;
+    
+}
+
+h1 {
+    margin: 0;
+}
+.resultDiv {
+    background: red;
+    height: 75vh;
+}
+
+.search {
+    background: white;
+}

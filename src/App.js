@@ -1,27 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-import TestComponent from './components/TestComponent';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <TestComponent />
-      </header>
-    </div>
-  );
+import './App.css';
+import './styles/Main.css';
+import Header from './components/Header.js';
+import ResultDiv from './components/ResultDiv.js';
+import React from 'react';
+import countryData from './models/countryData';
+import cityData from './models/cityData';
+
+export default class App extends React.Component{
+  constructor() {
+    super();
+    this.state = {
+      isCountryDisplay: true,
+      countries: countryData,
+      cities: cityData,
+      country: null,
+      city: null
+    }
+  }
+
+  handleSelect = () => {
+    console.log("hello");
+    //pass country or city here to determine whether isCountry or isCity
+    //
+  }
+
+  render(){
+    let items = this.state.countries;
+    return (
+      <div className="App">
+        <Header />
+        <ResultDiv items={items}
+                  handleSelection={this.handleSelect}
+        />
+      </div>
+    )
+  }
+  
 }
 
-export default App;
+

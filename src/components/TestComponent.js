@@ -12,11 +12,7 @@ export default class TestComponent extends React.Component {
         this.state.myBoolean ? this.setState({myBoolean: false}) : this.setState({myBoolean: true});
         console.log(this.state.myBoolean);
     }
-
-    //do an istrue
-
     
-
     render() {
         let text = <h1>Jeff is Cool</h1>;
         if (this.state.myBoolean === true) {
