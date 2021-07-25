@@ -9,15 +9,30 @@ export default class Header extends React.Component {
         super(props)
     }
 
+    CheckCountryCity = () => {
+        return this.props.isCountryDisplay==="countries"?
+            <ContinentDropdown
+                handleContinent={this.props.handleContinent}
+            />
+            :
+            null
+    }
+
     render() {
-        
+
+        let continentDropdown = this.CheckCountryCity();
         
         return (
             <div className="siteHeader">
                 <h1 className="mainTitle">Globehopper</h1>
-                <SearchBar/>
-                <CountryCityDropdown/>
-                <ContinentDropdown/>
+                <SearchBar
+                    handleInput={this.props.handleInput}
+                />
+                <CountryCityDropdown
+                    handleCountryCity={this.props.handleCountryCity}
+                />
+                {continentDropdown}
+                {/* <ContinentDropdown/> */}
             </div>
         )
     }

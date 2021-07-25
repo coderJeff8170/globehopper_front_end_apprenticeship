@@ -9,14 +9,14 @@ export default class ResultDiv extends React.Component {
 
 
     render() {
-        // if countries, results = this.props.countries
-        // if cities, results = this.props.cities
+
 
         let results = this.props.items.map(
-            (item) => {
-                //console.log(item.name);
+            (item, key) => {
                 return <DisplayCard 
+                    key={key}
                     itemName={item.name}
+                    item={item}
                     handleSelection={this.props.handleSelection}
                 />
             }

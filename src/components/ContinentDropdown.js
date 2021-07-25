@@ -5,21 +5,24 @@ export default class ContinentDropdown extends React.Component {
         super(props)
     }
 
-    //TODO: bubble it up to the state
-    handleContinent = (event) => console.log(event.target.value);
+    handleContinent = (event) => {
+        console.log(event.target.value);
+        this.props.handleContinent(event.target.value);
+    }
 
     render() { 
         return (
             <div>
                 <select name="continents" id="continents" onChange={this.handleContinent}>
-                    <option value="none">Filter By Continent:</option>
-                    <option value="africa">Africa</option>
-                    <option value="antarctica">Antarctica</option>
-                    <option value="asia">Asia</option>
-                    <option value="australia">Australia</option>
-                    <option value="europe">Europe</option>
-                    <option value="namerica">North America</option>
-                    <option value="samerica">South America</option>
+                    <option value="all">Filter By Continent:</option>
+                    <option value="all">All</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Antarctica">Antarctica</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Australia">Australia</option>
+                    <option value="Europe">Europe</option>
+                    <option value="North America">North America</option>
+                    <option value="South America">South America</option>
                 </select>
             </div>
         )

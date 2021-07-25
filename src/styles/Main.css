@@ -1,9 +1,12 @@
 .siteHeader {
+    position: fixed;
     width: 100%;
     background: blue;
-    height: 25vh;
+    height: 35vh;
     background-image: url("../images/old_globe.jfif");
 }
+
+/* let's do some parallax scrolling!! */
 
 .mainTitle {
     color: white;
@@ -14,8 +17,11 @@ h1 {
     margin: 0;
 }
 .resultDiv {
+    padding-top: 35vh;
     background: red;
     height: 75vh;
+    overflow-x: hidden;
+    overflow-y:scroll;
 }
 
 .search {

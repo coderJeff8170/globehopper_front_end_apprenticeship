@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
 import '../styles/Main.css';
 
 export default class SearchBar extends React.Component {
@@ -7,7 +8,9 @@ export default class SearchBar extends React.Component {
         super(props)
     }
     /**************************** methods go here ******************************/
-    handleInput = (event) => console.log(event.target.value)
+    handleInput = (event) => {
+        this.props.handleInput(event.target.value);
+    }
     
     /**************************** methods end here ***********************************/
     render() {
@@ -18,7 +21,10 @@ export default class SearchBar extends React.Component {
                     className="search"
                     onChange={this.handleInput}
                     variant="outlined"
-                    label="Find your Destination!"
+                    InputProps={{
+                        startAdornment: <SearchIcon />
+                    }}
+                    placeholder="Find your Destination!"
                 />
             </div>
         )

@@ -6,7 +6,10 @@ export default class CountryCityDropdown extends React.Component {
     }
 
     //TODO: bubble it up to the state
-    handleCountryCity = (event) => console.log(event.target.value);
+    handleCountryCity = (event) => {
+        event.stopPropagation();
+        this.props.handleCountryCity(event.target.value);
+    };
 
     render() {
         return (
