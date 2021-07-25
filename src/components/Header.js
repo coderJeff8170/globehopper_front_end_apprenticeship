@@ -32,7 +32,6 @@ export default class Header extends React.Component {
                     handleCountryCity={this.props.handleCountryCity}
                 />
                 {continentDropdown}
-                {/* <ContinentDropdown/> */}
             </div>
         )
     }

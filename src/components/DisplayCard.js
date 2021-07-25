@@ -22,7 +22,8 @@ export default class DisplayCard extends React.Component {
         // figure out whether this is 
         return (
             <Card onClick={this.handleCardDetail}>
-                    <CardHeader title={<h1>{this.props.itemName}</h1>}></CardHeader>
+                {/* TODO: conditionally render countries, cities, or city details */}
+                    <CardHeader title={<h1>{this.props.item.name}</h1>}></CardHeader>
                     <CardContent>
                         <p>itemDetails here</p>
                     </CardContent>

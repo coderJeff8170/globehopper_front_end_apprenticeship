@@ -7,12 +7,11 @@ export default class SearchBar extends React.Component {
     constructor(props){
         super(props)
     }
-    /**************************** methods go here ******************************/
+
     handleInput = (event) => {
         this.props.handleInput(event.target.value);
     }
-    
-    /**************************** methods end here ***********************************/
+
     render() {
 
         return (

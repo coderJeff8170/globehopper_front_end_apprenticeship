@@ -6,16 +6,17 @@ export default class ResultDiv extends React.Component {
     constructor(props){
         super(props)
     }
-
-
+    
+    
     render() {
-
+// TODO: if this.props.items.length===1 && this.props.items[0].hasOwnProperty('isCapital'){
+//  return a city display card - else return a regular display card
+//}
 
         let results = this.props.items.map(
             (item, key) => {
                 return <DisplayCard 
                     key={key}
-                    itemName={item.name}
                     item={item}
                     handleSelection={this.props.handleSelection}
                 />
