@@ -8,9 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 // import Typography from '@material-ui/core/Typography';
 
 export default class CityDetailCard extends React.Component {
-    constructor(props){
-        super(props)
-    }
 
     render() {
         let isCapital = this.props.item.capital?"yes":"no";
