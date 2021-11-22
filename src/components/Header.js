@@ -8,11 +8,12 @@ export default class Header extends React.Component {
     constructor(props){
         super(props)
     }
-
+    
     CheckCountryCity = () => {
+        console.log(this.props.isCountryDisplay);
         return this.props.isCountryDisplay==="countries"?
             <ContinentDropdown
-                handleContinent={this.props.handleContinent}
+                handleContinentDropdown={this.props.handleContinentDropdown}
             />
             :
             null
@@ -24,12 +25,13 @@ export default class Header extends React.Component {
         
         return (
             <div className="siteHeader">
-                <h1 className="mainTitle">Globehopper</h1>
+                <h1 className="mainTitle">Glöbehopper Pro</h1>
                 <SearchBar
                     handleInput={this.props.handleInput}
                 />
                 <CountryCityDropdown
-                    handleCountryCity={this.props.handleCountryCity}
+                    isCountryDisplay={this.props.isCountryDisplay}
+                    handleCountryCityDropdown={this.props.handleCountryCityDropdown}
                 />
                 {continentDropdown}
             </div>

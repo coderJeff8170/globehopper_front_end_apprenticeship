@@ -3,6 +3,8 @@
     width: 100%;
     background: blue;
     height: 35vh;
+    min-height: 175px;
+    max-height: 200px;
     background-image: url("../images/old_globe.jfif");
 }
 
@@ -10,7 +12,7 @@
 
 .mainTitle {
     color: white;
-    
+    padding: 10px 0;
 }
 
 h1 {
@@ -18,7 +20,7 @@ h1 {
 }
 .resultDiv {
     padding-top: 35vh;
-    background: red;
+    /* background: red; */
     height: 75vh;
     overflow-x: hidden;
     overflow-y:scroll;
@@ -26,4 +28,12 @@ h1 {
 
 .search {
     background: white;
+}
+
+.cardImage {
+    height: 10rem;
+}
+
+#countryCityDropdown {
+    margin-top: 10px;
 }

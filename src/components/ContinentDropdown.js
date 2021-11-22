@@ -5,15 +5,15 @@ export default class ContinentDropdown extends React.Component {
         super(props)
     }
 
-    handleContinent = (event) => {
+    handleContinentDropdown = (event) => {
         console.log(event.target.value);
-        this.props.handleContinent(event.target.value);
+        this.props.handleContinentDropdown(event.target.value);
     }
 
     render() { 
         return (
             <div>
-                <select name="continents" id="continents" onChange={this.handleContinent}>
+                <select name="continents" id="continents" onChange={this.handleContinentDropdown}>
                     <option value="all">Filter By Continent:</option>
                     <option value="all">All</option>
                     <option value="Africa">Africa</option>

@@ -4,9 +4,6 @@ import './styles/Main.css';
 import Header from './components/Header.js';
 import ResultDiv from './components/ResultDiv.js';
 import React from 'react';
-//import countryData from './models/countryData';
-//import cityData from './models/cityData';
-
 
 export default class App extends React.Component{
   constructor() {
@@ -17,8 +14,6 @@ export default class App extends React.Component{
       countries: [],
       cities: [],
       continent: "all",
-      country: null,
-      city: null,
       searchValue: '',
       itemsToDisplay: []
     }
@@ -29,11 +24,8 @@ export default class App extends React.Component{
   }
 
   fetchData = () => {
-    //get the countries from the db
     fetch(
-      'http://localhost:8090/api/countries',
-      //authentication would go here to prevent cors
-      //{ mode: "no-cors"}
+      'http://localhost:8080/api/countries'
     )
       .then(response => response.json())
       .then(this.onCountryFetchSuccess, this.onFetchFailure)
@@ -41,8 +33,7 @@ export default class App extends React.Component{
   }
 
   fetchCities = () => {
-    //get the cities from the db
-    fetch('http://localhost:8090/api/cities')
+    fetch('http://localhost:8080/api/cities')
       .then(response => response.json())
       .then(this.onCityFetchSuccess, this.onFetchFailure)
       .catch(this.onFetchError);
@@ -55,10 +46,8 @@ export default class App extends React.Component{
 
   onCityFetchSuccess = (data) => {
     //TODO: put this in a timeout so it looks like it's loading..
-    //this.setState({ cities: data })
-    //make an array of temporary countries to mutate
     let tempCountries = [...this.state.countries];
-    //TODO: for each city in this.state.cities,
+    //for each city in data, find it's country and insert into that country's cities array
     for(let i = 0; i < data.length; i++) {
       let thisCity = data[i];
       let matchedCountry = tempCountries.find(el => thisCity.countryid===el.countryid);
@@ -69,17 +58,13 @@ export default class App extends React.Component{
         matchedCountry.cities.push(thisCity);
       }
     }
-    //find it's matching country
-    //figure out if that country has a cities array to store the city
-    //if it does, push the city to the cities array
-    //if it doesn't, add a new property called cities, that's an empty array,
-    //and add the city to it.
-    //then set the state.countries to this new version.
+    //set countries to amended countries, cities to data from city fetch and default display to countries
     this.setState({
       countries: tempCountries,
       cities: data,
       itemsToDisplay: tempCountries
     });
+    
   }
 
   onFetchFailure = (reason) => {
@@ -90,80 +75,47 @@ export default class App extends React.Component{
     console.log(err);
   }
 
-  handleCountryCity = (value) => {
+  handleCountryCityDropdown = (value) => {
     this.setState({ isCountryDisplay: value});
-    //TODO: if value is 'countries' set itemsToDisplay to array of countries
-    //or else if it's cities, set itemsToDisplay to cities.
-    //this.setState({itemsToDisplay: [...this.state.countries]})
-  }
-
-  /*
-  handleCountryCity = (value) => {
     if(value==='countries') {
       this.setState({itemsToDisplay: [...this.state.countries]});
     } else {
       this.setState({itemsToDisplay: [...this.state.cities]});
     }
-    
   }
-  
-  
-  */
 
-  //TODO: rename setContinent
-  handleContinent = (value) => {
+  handleContinentDropdown = (value) => {
     this.setState({continent: value});
   }
 
-  handleSelect = (item) => {
-    if(item.hasOwnProperty("continent")){
+  handleClickOnDisplayCard = (item) => {
       //display all cities from item
       //set itemsToDisplay to item.cities if it has a cities property
-      //this.setState({itemsToDisplay: [...item.cities]});
-      console.log("Im a country");
+    if(item.hasOwnProperty("cities")){
+      this.setState({
+        itemsToDisplay: [...item.cities],
+        isCountryDisplay: "cities"
+      });
     } else {
       //set itemsToDisplay to that city
-      //this.setState({itemsToDisplay: [...item]});
-      console.log("I'm a city");
+      this.setState({
+        itemsToDisplay: [item]
+      });
     }
-    //TODO: if country  is clicked, send all it's cities to be displayed as items
-    //if a city is clicked, display one card with it's details as items
   }
 
-  handleItems = () => {
-    //set items default to countries
-    let items = [...this.state.countries];
-    //if allcountries, show all countries
-    if(this.state.isCountryDisplay==="countries"){
-      if(this.state.continent !== "all"){
-        items = items.filter(el=>el.continent===this.state.continent);
-      } 
-      //console.log(items); 
-    } else {
-      items = [...this.state.cities];
-      //console.log(items);
+  displayItems = (itemsToDisplay) => {
+    if(itemsToDisplay.length > 0) {
+      //if(itemsToDisplay.length === 1 && itemsToDisplay[0].hasOwnProperty('capital'))
+      //if they're countries, run the filters specific to countries
+      if(itemsToDisplay[0].hasOwnProperty('continent')){
+        if(this.state.continent !== "all"){
+          itemsToDisplay = itemsToDisplay.filter(el=>el.continent===this.state.continent);
+        } 
+      }
+      return itemsToDisplay.filter(item => item.name.toLowerCase().includes(this.state.searchValue.toLowerCase()));
     }
-    //TODO: filter by searchvalue here? to lowercase!
-    return items.filter(item => item.name.toLowerCase().includes(this.state.searchValue.toLowerCase()));
   }
-
-  /*
-  handleItems = (itemsToDisplay) => {
-    //if they're countries, run the filters specific to countries
-    if(itemsToDisplay[0].hasOwnProperty('continent')){
-      if(this.state.continent !== "all"){
-        items = items.filter(el=>el.continent===this.state.continent);
-      } 
-    }
-    //if they're cities, run the filters specific to cities
-
-    return items.filter(item => item.name.toLowerCase().includes(this.state.searchValue.toLowerCase()));
-    //if it's one city, just return it
-    return items;
-  }
-  
-  */
-
 
   onSearchChange = (value) => {
     this.setState({searchValue: value});
@@ -172,25 +124,22 @@ export default class App extends React.Component{
 
   render(){
     
-    //let items = this.handleItems(this.state.itemsToDisplay);
-    let items = this.handleItems();
+    let items = this.displayItems([...this.state.itemsToDisplay]);
 
     return (
       <div className="App">
         <Header 
-          handleCountryCity={this.handleCountryCity}
+          handleCountryCityDropdown={this.handleCountryCityDropdown}
           isCountryDisplay={this.state.isCountryDisplay}
-          handleContinent={this.handleContinent}
+          handleContinentDropdown={this.handleContinentDropdown}
           handleInput={this.onSearchChange}
         />
         <ResultDiv 
           items={items}
-          handleSelection={this.handleSelect}
+          handleClickOnDisplayCard={this.handleClickOnDisplayCard}
         />
       </div>
     )
   }
   
 }
-
-
